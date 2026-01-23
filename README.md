@@ -11,18 +11,19 @@ See the original MOSS paper for more details:
 
 #### How does it work?
 
-    *In short...*
+ *In short...*
 
     1. MOAIS takes a programming assignment and rubric as input.
     2. It uses AI to generate hundreds of variations of solutions to the problem.
     3. These generated solutions are then compared against the student-written code to assess similarity.
 
-    *In detail...*
+
+ *In detail...*
 
     - MOAIS leverages the GitHub Copilot CLI to generate code snippets based on the provided programming assignment and rubric.
         - Additionally, prompts are also designed to push for more unique responses.
     - Using these generated snippets, MOAIS creates a comprehensive dataset of potential solutions.
-    - MOAIS uses the Winnowing algorithm to break code snippets into hashes.
+    - Using the Winnowing algorithm, it break code snippets into small hashes.
     - These hashes are then compared using Jaccard Similarity Index to identify similarities and potential plagiarism through similarities in code structure and logic.
 
 
