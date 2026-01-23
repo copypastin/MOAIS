@@ -1,0 +1,52 @@
+
+1. Learning Objectives
+By completing this assignment, you will demonstrate proficiency in:
+Data Structures: Using lists (or lists of lists) to model game state.
+Control Flow: Managing game loops (while) and conditional logic (if/else).
+Functions: Breaking down complex problems into modular helper functions.
+Input Validation: Handling user input robustly using try/except and logical checks.
+2. Assignment Overview
+You are to build a command-line version of the classic game Tic-Tac-Toe. The game involves two players taking turns to place their marks ('X' and 'O') on a 3x3 grid. The first player to align three marks horizontally, vertically, or diagonally wins. If the board fills up without a winner, the game is a draw.
+
+Core Requirements
+The Board: Represent the 3x3 grid using a Python list (e.g., a list of 9 items or a 3x3 matrix).
+Visuals: Print the board to the console after every turn so players can see the game state.
+Game Loop: The game must run continuously until a win or tie occurs.
+Input: You must handle user input to select a spot.
+Replay: After a game finishes, ask the users if they want to play again.
+3. Step-by-Step Implementation Guide
+I recommend structuring your code using the following functions. This modular approach will make your code easier to debug and grade.
+
+Step 1: Initialize the Board
+Create a variable to store the state of the board. You may use a list of 9 strings (e.g., [" ", " ", " ", ...]) or a list of 3 lists.
+Hint: The board should start empty or with placeholder numbers (1-9) to help users choose a spot.
+Step 2: Display Function
+Write a function print_board(board) that accepts the list and prints it in a user-friendly format.
+
+Example Output:
+Plaintext
+ X | O |
+---+---+---
+   | X |
+---+---+---
+ O |   | X
+
+Step 3: Input Handling
+Write logic to prompt the current player for their move.
+Validation: You must ensure:
+The input is a number (or valid coordinate).
+The number is within the valid range (1-9 or 0-8).
+The chosen spot is not already occupied.
+If the input is invalid, alert the user and ask for input again; do not crash the program.
+
+Step 4: Win & Tie Logic
+After every move, check the game state.
+Win: Check all 3 rows, 3 columns, and 2 diagonals. If any contain three of the same symbol, the game ends.
+Tie: If there are no empty spots left and no winner, declare a tie.
+
+Step 5: The Game Loop
+Combine everything in a main() function.
+Set the current player (usually 'X' starts).
+Loop until the game is over.
+Inside the loop: Print board -> Get Move -> Check Win/Tie -> Switch Player.
+Once the loop breaks, print the final result.
