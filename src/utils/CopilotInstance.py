@@ -16,8 +16,8 @@ from copilot import CopilotClient
 
 
 class CopilotInstance:
-    def __init__(self, language = "Python", model: str = "gpt-4.1", output: bool = False):
-        self.AGENT_PROMPT = f"Please solve the following programming challenge. Your response must contain ONLY {language} code with no explanations, no markdown formatting, and no text before or after the code."
+    def __init__(self, language = "Python", model: str = "gpt-5-mini", output: bool = False):
+        self.AGENT_PROMPT = f"Please solve the following programming challenge using a unique solution. Your response must contain ONLY {language} code with no explanations, no markdown formatting, and no text before or after the code."
         self.output = output
         self.model = model
 
