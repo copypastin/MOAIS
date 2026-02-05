@@ -1,0 +1,33 @@
+Goals:
+Write your own structure.
+Use an array of structures.
+Apply array processing algorithms to arrays of structures.
+Requirements:
+Write a program that lets a maker of chips and salsa keep track of sales for five different types of salsa: mild, medium, sweet, hot, and zesty. The program will use a structure named Salsa that holds the following information:
+name - a string to hold the name of the salsa.
+sold - an integer that holds the number of jars of that type of Salsa sold during the past month.
+Create one array of Salsa structures containing 5 elements, one for each salsa type. Use an initialization list to initialize the array with the names for each Salsa. The program should prompt the user to enter the number of jars sold for each type. Once this sales data has been entered, the program should calculate and display the total sales and the name of the highest selling salsa.
+
+You will create ONE structure. Do NOT create nested structures. The structure will have exactly TWO fields - a string and an integer. Use only what we have covered in the course and the textbook from chapters 1 - 11 to solve this problem. There will be a minimum deduction of two points if you do not. If the program does not compile, it will receive 0 points.
+
+General Scoring Guide:
+Defining the structure correctly - +5 points
+Correctly creating and initializing the array using an initialization list (should be one statement) - +5 points
+Correctly entering the number of jars sold - +2 points
+Correctly display the total sales - +4 points
+Correctly displaying the name of the highest selling salsa - +4 points
+Miscellaneous deductions can occur as outlined in the syllabus.
+A 20-Point Sample Run:
+Plaintext
+Enter jars of mild sold: 8
+Enter jars of medium sold: 6
+Enter jars of sweet sold: 7
+Enter jars of hot sold: 5
+Enter jars of zesty sold: 3
+
+Total sales: 29
+Highest selling salsa: mild
+Hints:
+The array processing algorithms from chapter 7 can be modified to be used on arrays of structures.
+See chapter 7 for an example of an initialization list for arrays. You'll combine that idea with how you use initialization lists with structures.
+Lecture videos 1 - 5 cover content necessary for this program.
