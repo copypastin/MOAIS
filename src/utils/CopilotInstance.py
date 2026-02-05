@@ -16,19 +16,27 @@ from copilot import CopilotClient
 
 
 class CopilotInstance:
-    def __init__(self, language = "Python", model: str = "gpt-5-mini", output: bool = False):
+    def __init__(self, language = "Python", model: str = "gpt-5-mini", output: bool = False, temperature_range: tuple = (1.0, 1.5)):
         self.AGENT_PROMPT = f"Please solve the following programming challenge using a unique solution. Your response must contain ONLY {language} code with no explanations, no markdown formatting, and no text before or after the code."
         self.output = output
         self.model = model
+        self.temperature_range = temperature_range  # (min, max) range for random temperature
+        self.solution_count = 0  # Track solution number
 
     async def initalize(self):
         self.client = CopilotClient()
         await self.client.start()
+        
+        # Generate random temperature for this initial session
+        temperature = random.uniform(self.temperature_range[0], self.temperature_range[1])
+        print(f"Initial session temperature: {temperature:.2f}")
+        
         self.session = await self.client.create_session({
             "model": self.model,
+            "temperature": temperature,  # Random temperature
             "on_permission_request": self._deny_all_permissions,
             "systemMessage": {
-                "content": "You are a code generator. Each request is independent - you have no memory of previous conversations. Respond only with code."
+                "content": "You are a code generator. Each request is independent - you have no memory of previous conversations. Respond only with code. Generate diverse, creative solutions using different approaches, algorithms, and coding styles."
             }
         })
 
@@ -52,12 +60,16 @@ class CopilotInstance:
         """
         await self._recycleSession()
 
-        # Add a unique identifier to bust any caching
-        cache_buster = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+        # Increment solution counter
+        self.solution_count += 1
         
-        # Send prompt with problem text directly (no attachments)
+        # Add multiple unique identifiers
+        cache_buster = ''.join(random.choices(string.ascii_letters + string.digits, k=8))
+        timestamp = int(time.time() * 1000000)  # Microsecond timestamp
+        
+        # Send prompt with variation
         response = await self.session.send_and_wait({
-            "prompt": f"[Request ID: {cache_buster}]\n\n{self.AGENT_PROMPT}\n\n{problem_text}"
+            "prompt": f"[Request ID: {cache_buster}] [Timestamp: {timestamp}] [Solution #{self.solution_count}]\n\n{self.AGENT_PROMPT}\n\n{problem_text}"
         })
 
         if self.output:
@@ -99,7 +111,7 @@ class CopilotInstance:
         while i < count:
             start_time = time.time()
 
-            await self.generateCode(problem_text, os.path.join(output_dir, f"output-{i}.py"))
+            await self.generateCode(problem_text, os.path.join(output_dir, f"output-{i}.txt"))
             i += 1
 
             end_time = time.time()
@@ -121,12 +133,17 @@ class CopilotInstance:
         # Delete the old session reference
         del self.session
         
+        # Generate a NEW random temperature for each session
+        temperature = random.uniform(self.temperature_range[0], self.temperature_range[1])
+        print(f"New session temperature: {temperature:.2f}")
+        
         # Create a completely fresh session with no conversation history
         self.session = await self.client.create_session({
             "model": self.model,
+            "temperature": temperature,  # Random temperature per session
             "on_permission_request": self._deny_all_permissions,
             "systemMessage": {
-                "content": "You are a code generator. Each request is independent - you have no memory of previous conversations. Respond only with code."
+                "content": "You are a code generator. Each request is independent - you have no memory of previous conversations. Respond only with code. Generate diverse, creative solutions using different approaches, algorithms, and coding styles."
             }
         })
 
